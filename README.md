@@ -82,7 +82,7 @@ mutation logStartTime($date: Date!) {
 `
 
 aido.start().then(() => {
-  aido.helpers.graphQL.mutate(mutation, { date })
+  aido.helpers.graphQL.mutate(mutation, { date: startupTime })
 })
 ```
 
@@ -98,7 +98,7 @@ mutation logPluginStartTime($date: Date!, $plugin: String!) {
 `
 function pluginFactory(koa, utils) {
   async function initPlugin() {
-    utils.helpers.graphQL.mutate(mutation, { date, plugin: 'my-plugin' })
+    utils.helpers.graphQL.mutate(mutation, { date: startupTime, plugin: 'my-plugin' })
   }
 }
 ```
