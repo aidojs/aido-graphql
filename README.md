@@ -4,7 +4,7 @@ A simple GraphQL client for your Aido applications.
 
 ## Installation
 
-The aido-cron package can be installed with your package manager of choice :
+The aido-graphql package can be installed with your package manager of choice :
 
 ```sh
 npm install --save aido-graphql
