@@ -35,7 +35,7 @@ aido.init({
       'X-special-auth': 'XXXXXXXXX',
     },
     errorManager: (res) => {
-      console.log(`[${res.status}] GraphQL error : ${res.statusText}`)
+      console.log(`GraphQL error : ${res.error}`)
     },
   },
   // ...
@@ -44,7 +44,7 @@ aido.init({
 
 * **apiURL** (*String*) : The URL of your GraphQL endpoint
 * **defaultHeaders** (*Object*) : HTTP headers that should be added to every request
-* **errorManager** (*Function*) : A callback to handle GraphQL errors. This callback will be called every time a request returns a status code not in the 2XX range. *Please note that these statuses will not throw an exception, in conformity with [node-fetch's behaviour](https://www.npmjs.com/package/node-fetch#handling-exceptions). Exceptions will only be thrown by system or network errors.*
+* **errorManager** (*Function*) : A callback to handle GraphQL errors. This callback will be called every time a request returns an error object. *Please note that these statuses will not throw an exception, in conformity with [node-fetch's behaviour](https://www.npmjs.com/package/node-fetch#handling-exceptions). Exceptions will only be thrown by system or network errors.*
 
 ## Usage
 
@@ -103,7 +103,7 @@ function pluginFactory(koa, utils) {
 }
 ```
 
-### Changing base headers
+### Headers management
 
 By default, the following HTTP header will be added to every request : `'Content-Type': 'application/json'`. You can change it on application startup, or when initializing a plugin, using the helper `baseHeaders` :
 
@@ -112,6 +112,10 @@ aido.start().then(() => {
   aido.helpers.graphQL.baseHeaders['X-extra-special-header'] = 'YYYYYYYYYY'
 })
 ```
+
+You can add default headers, which will be added to every request, by specifying them in the GraphQL configuration (see above).
+
+Finally, you can add additional headers to a specific query or mutation. The headers will be merged in the following order : baseHeaders, defaultHeaders, additionalHeaders.
 
 ## API
 
